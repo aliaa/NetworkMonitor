@@ -1,37 +1,43 @@
-﻿<div class="top-row pl-4 navbar navbar-dark">
-    <a class="navbar-brand" href="">NetworkMonitor</a>
-    <button class="navbar-toggler" @onclick="ToggleNavMenu">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-</div>
+﻿<nav class="navbar navbar-expand-md navbar-toggleable-lg navbar-dark bg-dark border-bottom">
+    <div class="container-fluid flex-wrap">
+        <a class="navbar-brand" href="">Network Monitor</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse d-lg-inline-flex">
+            <ul class="navbar-nav w-100 flex-wrap">
+                <AuthorizeView>
+                    <li class="nav-item">
+                        <NavLink class="nav-link" href="/">Home</NavLink>
+                    </li>
 
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <ul class="nav flex-column">
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
-            </NavLink>
-        </li>
-    </ul>
-</div>
+                    <li class="nav-item">
+                        <NavLink class="nav-link" href="settings">Settings</NavLink>
+                    </li>
 
-@code {
-    private bool collapseNavMenu = true;
-
-    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
-}
+                    <AuthorizeView Context="a" Policy="@nameof(Permission.ManageUsers)">
+                        <li class="nav-item">
+                            <NavLink class="nav-link" href="user/manage">Manage Users</NavLink>
+                        </li>
+                    </AuthorizeView>
+                </AuthorizeView>
+                <AuthorizeView>
+                    <Authorized>
+                        <li class="nav-item ml-auto">
+                            <NavLink class="nav-link" href="user/settings"><UserDisplayName /></NavLink>
+                        </li>
+                        <li class="nav-item">
+                            <NavLink class="nav-link" href="login/out">Logout</NavLink>
+                        </li>
+                    </Authorized>
+                    <NotAuthorized>
+                        <li class="nav-item ml-auto">
+                            <NavLink class="nav-link" href="login">Login</NavLink>
+                        </li>
+                    </NotAuthorized>
+                </AuthorizeView>
+            </ul>
+        </div>
+    </div>
+</nav>

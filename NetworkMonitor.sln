@@ -3,17 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30711.63
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkMonitor.Server", "Server\NetworkMonitor.Server.csproj", "{01DBFFB7-838B-4754-9BF3-E10063299516}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetworkMonitor.Server", "Server\NetworkMonitor.Server.csproj", "{01DBFFB7-838B-4754-9BF3-E10063299516}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkMonitor.Client", "Client\NetworkMonitor.Client.csproj", "{E7E10D9D-463E-4CB1-B3F9-F9F3BB068168}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetworkMonitor.Client", "Client\NetworkMonitor.Client.csproj", "{E7E10D9D-463E-4CB1-B3F9-F9F3BB068168}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkMonitor.Shared", "Shared\NetworkMonitor.Shared.csproj", "{4334C070-7848-434E-83ED-4F82EEBD8ACC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetworkMonitor.Shared", "Shared\NetworkMonitor.Shared.csproj", "{4334C070-7848-434E-83ED-4F82EEBD8ACC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AliaaCommon.Blazor", "..\..\AliaaCommon\AliaaCommon.Blazor\AliaaCommon.Blazor.csproj", "{B75F1D0A-51B0-4061-B00D-0CC69F895818}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyMongoNet.Definitions", "..\..\EasyMongoNet\Definitions\EasyMongoNet.Definitions.csproj", "{7F8A1F40-EA44-443B-B61E-C17861421532}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyMongoNet.Driver2", "..\..\EasyMongoNet\Driver2\EasyMongoNet.Driver2.csproj", "{AF1BF3A0-0FA9-497A-BAC1-8E2D7C3F3E65}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AliaaCommon.Models", "..\..\AliaaCommon\AliaaCommon.Models\AliaaCommon.Models.csproj", "{F904060A-A2E2-4120-AE45-6B60AA4D6AB9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{AF1BF3A0-0FA9-497A-BAC1-8E2D7C3F3E65}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF1BF3A0-0FA9-497A-BAC1-8E2D7C3F3E65}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF1BF3A0-0FA9-497A-BAC1-8E2D7C3F3E65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F904060A-A2E2-4120-AE45-6B60AA4D6AB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F904060A-A2E2-4120-AE45-6B60AA4D6AB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F904060A-A2E2-4120-AE45-6B60AA4D6AB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F904060A-A2E2-4120-AE45-6B60AA4D6AB9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

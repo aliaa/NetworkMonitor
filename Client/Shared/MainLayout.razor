@@ -1,4 +1,6 @@
 ﻿@inherits LayoutComponentBase
+@using Blazored.Toast
+@using Blazored.Toast.Configuration
 
 <div class="page">
     <div class="sidebar">
@@ -6,12 +8,9 @@
     </div>
 
     <div class="main">
-        <div class="top-row px-4">
-            <a href="http://blazor.net" target="_blank" class="ml-md-auto">About</a>
-        </div>
-
-        <div class="content px-4">
+        <div class="content container-fluid">
             @Body
         </div>
+        <BlazoredToasts Timeout="3" Position="ToastPosition.BottomRight" />
     </div>
 </div>
