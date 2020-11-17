@@ -1,0 +1,47 @@
+﻿@page "/definitions"
+@inject HttpClientX http
+
+<div class="container">
+    <button class="btn btn-secondary" @onclick="AddNode">Add Node</button>
+
+    <div class="mt-5">
+        @foreach (var item in Nodes)
+        {
+            <NodeDefinition Node="item" />
+        }
+        
+    </div>
+
+    @if (loading)
+    {
+        <Loading />
+    }
+    else
+    {
+        <div class="mt-5">
+            <button class="btn btn-primary" @onclick="Save">Save</button>
+        </div>
+    }
+    <p>@resultCount</p>
+</div>
+
+
+@code {
+
+    List<NetworkNode> Nodes { get; set; } = new List<NetworkNode>();
+    int resultCount = 0;
+    bool loading;
+
+    private void AddNode()
+    {
+        Nodes.Add(new NetworkNode());
+    }
+
+    private async Task Save()
+    {
+        loading = true;
+        var result = await http.PostAsJsonAsync<List<NetworkNode>, List<NetworkNode>>("Nodes/Save", Nodes);
+        resultCount = result.Count;
+        loading = false;
+    }
+}

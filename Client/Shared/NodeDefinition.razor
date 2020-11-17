@@ -1,0 +1,25 @@
+﻿<div class="row">
+    <div class="col form-group">
+        <Label For="() => Node.Name" />
+        <input type="text" @bind="Node.Name" class="form-control" />
+    </div>
+    <div class="col form-group">
+        <Label For="() => Node.Name" />
+        <input type="text" @bind="Node.Address" class="form-control" />
+    </div>
+    <div class="col form-group">
+        <Label For="() => Node.CheckMechanism" />
+        <select class="form-control" @bind="Node.CheckMechanism">
+            @foreach (var item in Enum.GetNames<NetworkNode.CheckMechanismEnum>())
+            {
+                <option>@item</option>
+            }
+        </select>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public NetworkNode Node { get; set; }
+}
