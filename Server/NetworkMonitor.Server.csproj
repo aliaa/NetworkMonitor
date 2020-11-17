@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\EasyMongoNet\Definitions\EasyMongoNet.Definitions.csproj" />
+    <ProjectReference Include="..\..\..\EasyMongoNet\Driver2\EasyMongoNet.Driver2.csproj" />
+    <ProjectReference Include="..\Client\NetworkMonitor.Client.csproj" />
+    <ProjectReference Include="..\Shared\NetworkMonitor.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
+
+</Project>
