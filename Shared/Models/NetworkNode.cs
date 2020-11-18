@@ -12,7 +12,10 @@ namespace NetworkMonitor.Shared.Models
             Http
         }
 
+        [Required]
         public string Name { get; set; }
+
+        [Required]
         public string Address { get; set; }
         
         [BsonRepresentation(MongoDB.Bson.BsonType.String)]

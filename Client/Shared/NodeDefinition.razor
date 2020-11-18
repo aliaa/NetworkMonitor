@@ -4,7 +4,7 @@
         <input type="text" @bind="Node.Name" class="form-control" />
     </div>
     <div class="col form-group">
-        <Label For="() => Node.Name" />
+        <Label For="() => Node.Address" />
         <input type="text" @bind="Node.Address" class="form-control" />
     </div>
     <div class="col form-group">
@@ -16,10 +16,16 @@
             }
         </select>
     </div>
+    <div class="col">
+        <button class="btn btn-danger" style="margin-top:2em;" @onclick="() => RemoveNode.InvokeAsync(Node)">Remove</button>
+    </div>
 </div>
 
 @code {
 
     [Parameter]
     public NetworkNode Node { get; set; }
+
+    [Parameter]
+    public EventCallback<NetworkNode> RemoveNode { get; set; }
 }
