@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Microsoft.Extensions.Configuration;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace NetworkMonitor.Server.Services
 {
-    public class HttpGetSmsSender : ISmsSender
+    public class HttpGetAlertSender : IAlertSender
     {
         private readonly IHttpClientFactory httpClientFactory;
         private readonly string urlTemplate;
@@ -18,10 +16,10 @@ namespace NetworkMonitor.Server.Services
         /// 
         /// </summary>
         /// <param name="urlTemplate">A URL containing {destination} and {content}.</param>
-        public HttpGetSmsSender(IHttpClientFactory httpClientFactory, string urlTemplate)
+        public HttpGetAlertSender(IHttpClientFactory httpClientFactory, IConfiguration configuration)
         {
             this.httpClientFactory = httpClientFactory;
-            this.urlTemplate = urlTemplate;
+            this.urlTemplate = configuration.GetValue<string>("AlertServiceUri");
         }
 
         public async Task<string> Send(string destination, string content)

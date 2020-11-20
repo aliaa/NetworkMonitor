@@ -5,13 +5,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MongoDB.Driver;
 using NetworkMonitor.Server.Models;
 using NetworkMonitor.Server.Services;
 using NetworkMonitor.Shared.Models;
 using System;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Reflection;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
@@ -20,18 +20,19 @@ namespace NetworkMonitor.Server
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public IConfiguration Configuration { get; }
+        public IHostEnvironment Environment { get; }
+
+        public Startup(IConfiguration configuration, IHostEnvironment environment)
         {
             Configuration = configuration;
+            Environment = environment;
         }
-
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).
                 AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
                 {
@@ -62,9 +63,7 @@ namespace NetworkMonitor.Server
             });
 
             services.AddHttpClient();
-            services.AddTransient<ISmsSender>(s => new HttpGetSmsSender(
-                s.GetRequiredService<IHttpClientFactory>(), 
-                Configuration.GetValue<string>("SmsServiceUri")));
+            services.AddTransient<IAlertSender, HttpGetAlertSender>();
 
             services.AddRazorPages();
             services.AddHttpContextAccessor();
@@ -78,6 +77,9 @@ namespace NetworkMonitor.Server
             {
                 options.AutomaticAuthentication = false;
             });
+
+            if (!Environment.IsDevelopment())
+                services.AddHostedService<NetworkChecker>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

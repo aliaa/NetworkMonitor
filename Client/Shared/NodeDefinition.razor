@@ -16,6 +16,10 @@
             }
         </select>
     </div>
+    <div class="col form-group">
+        <Label For="() => Node.AlertReceivers" />
+        <textarea class="form-control" @bind="Node.AlertReceiversText"></textarea>
+    </div>
     <div class="col">
         <button class="btn btn-danger" style="margin-top:2em;" @onclick="() => RemoveNode.InvokeAsync(Node)">Remove</button>
     </div>

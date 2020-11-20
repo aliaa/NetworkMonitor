@@ -2,7 +2,7 @@
 
 namespace NetworkMonitor.Server.Services
 {
-    public interface ISmsSender
+    public interface IAlertSender
     {
         Task<string> Send(string destination, string content);
     }
