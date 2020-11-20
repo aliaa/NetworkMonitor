@@ -17,6 +17,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyMongoNet.Driver2", "..\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AliaaCommon.Models", "..\..\AliaaCommon\AliaaCommon.Models\AliaaCommon.Models.csproj", "{F904060A-A2E2-4120-AE45-6B60AA4D6AB9}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AliaaCommon", "..\..\AliaaCommon\AliaaCommon\AliaaCommon.csproj", "{65FC6FD8-1FD7-4C15-8984-876D1BC75980}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{6BFB1408-4E69-41AE-9E1E-33460436CC3D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +55,14 @@ Global
 		{F904060A-A2E2-4120-AE45-6B60AA4D6AB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F904060A-A2E2-4120-AE45-6B60AA4D6AB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F904060A-A2E2-4120-AE45-6B60AA4D6AB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65FC6FD8-1FD7-4C15-8984-876D1BC75980}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65FC6FD8-1FD7-4C15-8984-876D1BC75980}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65FC6FD8-1FD7-4C15-8984-876D1BC75980}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65FC6FD8-1FD7-4C15-8984-876D1BC75980}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BFB1408-4E69-41AE-9E1E-33460436CC3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BFB1408-4E69-41AE-9E1E-33460436CC3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BFB1408-4E69-41AE-9E1E-33460436CC3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BFB1408-4E69-41AE-9E1E-33460436CC3D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

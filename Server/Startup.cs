@@ -6,10 +6,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NetworkMonitor.Server.Models;
+using NetworkMonitor.Server.Services;
 using NetworkMonitor.Shared.Models;
 using System;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Reflection;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
@@ -58,6 +60,11 @@ namespace NetworkMonitor.Server
             {
                 options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
             });
+
+            services.AddHttpClient();
+            services.AddTransient<ISmsSender>(s => new HttpGetSmsSender(
+                s.GetRequiredService<IHttpClientFactory>(), 
+                Configuration.GetValue<string>("SmsServiceUri")));
 
             services.AddRazorPages();
             services.AddHttpContextAccessor();
