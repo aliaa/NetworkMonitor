@@ -17,7 +17,7 @@ namespace NetworkMonitor.Server.Controllers
     {
         private readonly IMongoCollection<NetworkNode> nodesCol;
 
-        public NodesController(IMongoCollection<NetworkNode> nodesCol, IMongoCollection<AuthUserX> usersCol) : base(usersCol)
+        public NodesController(IMongoCollection<NetworkNode> nodesCol)
         {
             this.nodesCol = nodesCol;
         }

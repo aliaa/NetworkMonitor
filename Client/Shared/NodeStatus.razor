@@ -1,0 +1,16 @@
+﻿<div class="card @(Status.IsSuccess ? "alert-success": "alert-error")">
+    <div class="card-header">
+        <h4>@Status.Name</h4>
+    </div>
+    <div class="card-body">
+        <h6>@Status.Address</h6>
+        <p>Status: @(Status.HttpStatus != null ? Status.HttpStatus.Value : Status.IpStatus)</p>
+        <p>From: @Status.StartTime</p>
+        <p>To: @Status.Address</p>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public NodeStatusVM Status { get; set; }
+}

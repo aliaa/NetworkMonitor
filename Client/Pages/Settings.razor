@@ -1,0 +1,35 @@
+﻿@page "/settings"
+@inject HttpClientX http
+@attribute [Authorize]
+@using System.Text
+
+<div class="row">
+    <div class="col-md-4 form-group">
+        <label>Global Alert Receivers</label>
+        <textarea @bind="globalAlerReceiversText" rows="6" class="form-control"></textarea>
+    </div>
+</div>
+<button class="btn btn-primary" @onclick="Save">Save</button>
+
+
+@code {
+    string globalAlerReceiversText;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var list = await http.GetFromJsonAsync<List<string>>("Settings/GlobalAlertReceivers");
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < list.Count; i++)
+        {
+            sb.Append(list[i]);
+            if (i < list.Count - 1)
+                sb.Append('\n');
+        }
+        globalAlerReceiversText = sb.ToString();
+    }
+
+    private async Task Save()
+    {
+        await http.PostAsJsonAsync("Settings/SaveGlobalAlertReceivers", globalAlerReceiversText.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries));
+    }
+}

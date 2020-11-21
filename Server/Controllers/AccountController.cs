@@ -21,7 +21,11 @@ namespace NetworkMonitor.Server.Controllers
     [ApiController]
     public class AccountController : BaseController
     {
-        public AccountController(IMongoCollection<AuthUserX> userCol) : base(userCol) { }
+        private readonly IMongoCollection<AuthUserX> userCol;
+        public AccountController(IMongoCollection<AuthUserX> userCol) 
+        {
+            this.userCol = userCol;
+        }
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

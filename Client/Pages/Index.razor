@@ -1,5 +1,48 @@
 ﻿@page "/"
+@page "/index"
+@implements IDisposable
+@attribute [Authorize]
+@inject HttpClientX http
+@using System.Threading 
 
-<h1>Hello, world!</h1>
+<div class="row mt-4">
+    @if (nodesStatus != null)
+    {
+        @foreach (var item in nodesStatus)
+        {
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <NodeStatus Status="item" />
+            </div>
+        }
+    }
+    else
+    {
+        <Loading />
+    }
+</div>
 
-Welcome to your new app.
+@code {
+    private List<NodeStatusVM> nodesStatus;
+    private CancellationTokenSource cts;
+
+    protected override void OnInitialized()
+    {
+        cts = new CancellationTokenSource();
+        var token = cts.Token;
+        _ = Task.Run(async () =>
+        {
+            while (!token.IsCancellationRequested)
+            {
+                nodesStatus = await http.GetFromJsonAsync<List<NodeStatusVM>>("Home/Status", token);
+                StateHasChanged();
+                await Task.Delay(2000, token);
+            }
+        }, token);
+    }
+
+    void IDisposable.Dispose()
+    {
+        cts.Cancel();
+        cts.Dispose();
+    }
+}

@@ -12,12 +12,6 @@ namespace NetworkMonitor.Server.Controllers
 {
     public class BaseController : ControllerBase
     {
-        protected readonly IMongoCollection<AuthUserX> userCol;
-
-        public BaseController(IMongoCollection<AuthUserX> userCol)
-        {
-            this.userCol = userCol;
-        }
 
         protected string Username => HttpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
 
@@ -36,12 +30,5 @@ namespace NetworkMonitor.Server.Controllers
             }
         }
 
-        protected AuthUserX GetUser()
-        {
-            var id = UserId;
-            if (id != null)
-                return userCol.FindById(id);
-            return null;
-        }
     }
 }
