@@ -3,22 +3,24 @@
 @implements IDisposable
 @attribute [Authorize]
 @inject HttpClientX http
-@using System.Threading 
+@using System.Threading
 
-<div class="row mt-4">
-    @if (nodesStatus != null)
-    {
-        @foreach (var item in nodesStatus)
+<div class="container">
+    <div class="row mt-4">
+        @if (nodesStatus != null)
         {
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <NodeStatus Status="item" />
-            </div>
+            @foreach (var item in nodesStatus)
+            {
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <NodeStatus Status="item" />
+                </div>
+            }
         }
-    }
-    else
-    {
-        <Loading />
-    }
+        else
+        {
+            <Loading />
+        }
+    </div>
 </div>
 
 @code {
@@ -29,7 +31,7 @@
     {
         cts = new CancellationTokenSource();
         var token = cts.Token;
-        _ = Task.Run(async () =>
+        Task.Run(async () => 
         {
             while (!token.IsCancellationRequested)
             {

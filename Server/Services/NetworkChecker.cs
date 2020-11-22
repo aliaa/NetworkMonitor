@@ -23,7 +23,7 @@ namespace NetworkMonitor.Server.Services
         private readonly string alertContent;
         private readonly int errorWaitSeconds;
 
-        public NetworkChecker(IMongoCollection<NetworkNode> nodesCol, IMongoCollection<NodeStatusRange> statusCol, 
+        public NetworkChecker(IMongoCollection<NetworkNode> nodesCol, IMongoCollection<NodeStatusRange> statusCol,
             IMongoCollection<GlobalAlertReceiver> alertReceiversCol,
             IHttpClientFactory httpClientFactory, IAlertSender alertSender, IConfiguration configuration)
         {
@@ -61,9 +61,15 @@ namespace NetworkMonitor.Server.Services
                         var httpClient = httpClientFactory.CreateClient();
                         try
                         {
-                            var reply = await httpClient.GetAsync(n.Address, stoppingToken);
-                            if (lastStatus == null || lastStatus.HttpStatus != reply.StatusCode)
-                                lastStatus = new NodeStatusRange { StartTime = DateTime.Now, NodeId = n.Id, HttpStatus = reply.StatusCode };
+                            string address = n.Address;
+                            if (!address.StartsWith("http"))
+                                address = "http://" + n.Address;
+                            if (lastStatus == null)
+                                lastStatus = new NodeStatusRange { StartTime = DateTime.Now, NodeId = n.Id, LastTime = DateTime.Now };
+                            var reply = await httpClient.GetAsync(address, stoppingToken);
+                            if (lastStatus.HttpStatus != reply.StatusCode)
+                                lastStatus = new NodeStatusRange { StartTime = DateTime.Now, NodeId = n.Id, LastTime = DateTime.Now };
+                            lastStatus.HttpStatus = reply.StatusCode;
                         }
                         catch (Exception ex)
                         {

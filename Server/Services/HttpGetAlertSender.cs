@@ -13,7 +13,7 @@ namespace NetworkMonitor.Server.Services
         private const string CONTENT = "{content}";
 
         /// <summary>
-        /// 
+        /// Sends an HTTP GET request as an alert.
         /// </summary>
         /// <param name="urlTemplate">A URL containing {destination} and {content}.</param>
         public HttpGetAlertSender(IHttpClientFactory httpClientFactory, IConfiguration configuration)
