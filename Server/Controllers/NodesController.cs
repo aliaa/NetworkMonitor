@@ -37,6 +37,8 @@ namespace NetworkMonitor.Server.Controllers
                 else
                     await nodesCol.ReplaceOneAsync(n => n.Id == item.Id, item);
             }
+            var ids = nodes.Select(n => n.Id);
+            await nodesCol.DeleteManyAsync(n => !ids.Contains(n.Id));
             return Ok();
         }
     }
