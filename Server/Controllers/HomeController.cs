@@ -28,21 +28,19 @@ namespace NetworkMonitor.Server.Controllers
             this.nodesCol = nodesCol;
         }
 
+        private class LastNodeStatusRange : MongoEntity
+        {
+            public NodeStatusRange Last { get; set; }
+        }
+
         public async Task<ActionResult<List<NodeStatusVM>>> Status()
         {
-            //var lastStatus = (await nodeStatusCol.Aggregate()
-            //    .SortByDescending(s => s.LastTime)
-            //    .Group(id => id.NodeId, g => new { First = g.FirstOrDefault() })
-            //    .ToListAsync())
-            //    .Select(a => Mapper.Map<NodeStatusVM>(a.First))
-            //    .ToList();
 
-            var lastStatus = nodeStatusCol.AsQueryable()
-                .OrderByDescending(s => s.LastTime)
-                .GroupBy(s => s.NodeId)
-                .ToList()
-                .Select(g => Mapper.Map<NodeStatusVM>(g.First(), null))
-                .ToList();
+            var lastStatus = (await nodeStatusCol.Aggregate()
+                .SortByDescending(s => s.LastTime)
+                .Group("{_id: \"$" + nameof(NodeStatusRange.NodeId) + "\", Last: {$first: \"$$ROOT\"}}")
+                .As<LastNodeStatusRange>().ToListAsync())
+                .Select(x => Mapper.Map<NodeStatusVM>(x.Last));
 
             var nodes = (await nodesCol.AllAsync()).ToDictionary(k => k.Id);
             foreach (var item in lastStatus)
