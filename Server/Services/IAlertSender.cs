@@ -1,9 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using NetworkMonitor.Server.Models;
+using System.Threading.Tasks;
 
 namespace NetworkMonitor.Server.Services
 {
     public interface IAlertSender
     {
-        Task<string> Send(string destination, string content);
+        Task<AlertSendLog> Send(string nodeId, string destination, string content);
     }
 }

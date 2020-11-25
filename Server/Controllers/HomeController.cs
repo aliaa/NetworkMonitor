@@ -40,7 +40,8 @@ namespace NetworkMonitor.Server.Controllers
                 .SortByDescending(s => s.LastTime)
                 .Group("{_id: \"$" + nameof(NodeStatusRange.NodeId) + "\", Last: {$first: \"$$ROOT\"}}")
                 .As<LastNodeStatusRange>().ToListAsync())
-                .Select(x => Mapper.Map<NodeStatusVM>(x.Last));
+                .Select(x => Mapper.Map<NodeStatusVM>(x.Last))
+                .ToList();
 
             var nodes = (await nodesCol.AllAsync()).ToDictionary(k => k.Id);
             foreach (var item in lastStatus)
@@ -51,7 +52,7 @@ namespace NetworkMonitor.Server.Controllers
                     item.Name = nodes[item.NodeId].Name;
                 }
             }
-            return lastStatus.Where(i => i.Name != null).ToList();
+            return lastStatus.Where(i => i.Name != null).OrderBy(i => i.NodeId).ToList();
         }
     }
 }

@@ -31,7 +31,7 @@
     {
         cts = new CancellationTokenSource();
         var token = cts.Token;
-        Task.Run(async () => 
+        Task.Run(async () =>
         {
             while (!token.IsCancellationRequested)
             {

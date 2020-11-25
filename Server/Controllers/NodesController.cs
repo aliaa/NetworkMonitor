@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
-using NetworkMonitor.Server.Models;
 using NetworkMonitor.Shared.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;

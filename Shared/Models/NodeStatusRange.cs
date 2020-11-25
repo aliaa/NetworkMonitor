@@ -12,18 +12,18 @@ namespace NetworkMonitor.Shared.Models
         public string NodeId { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime LastTime { get; set; }
+        public DateTime? AlertSendTime { get; set; }
 
         [BsonRepresentation(MongoDB.Bson.BsonType.String)]
         public IPStatus? IpStatus { get; set; }
         public HttpStatusCode? HttpStatus { get; set; }
-        public Exception Error { get; set; }
-        public bool AlertSent { get; set; }
+        public string ErrorMessage { get; set; }
 
         public bool IsSuccess
         {
             get
             {
-                if (Error != null)
+                if (ErrorMessage != null)
                     return false;
                 if (IpStatus != null)
                     return IpStatus == IPStatus.Success;
