@@ -1,13 +1,10 @@
 ﻿using EasyMongoNet;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
-using NetworkMonitor.Server.Models;
 using NetworkMonitor.Shared.Models;
 using NetworkMonitor.Shared.ViewModels;
 using Omu.ValueInjecter;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -37,7 +34,7 @@ namespace NetworkMonitor.Server.Controllers
         {
 
             var lastStatus = (await nodeStatusCol.Aggregate()
-                .SortByDescending(s => s.LastTime)
+                .SortByDescending(s => s.Id)
                 .Group("{_id: \"$" + nameof(NodeStatusRange.NodeId) + "\", Last: {$first: \"$$ROOT\"}}")
                 .As<LastNodeStatusRange>().ToListAsync())
                 .Select(x => Mapper.Map<NodeStatusVM>(x.Last))
