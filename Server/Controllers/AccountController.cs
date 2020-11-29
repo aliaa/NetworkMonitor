@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using EasyMongoNet;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -46,8 +47,13 @@ namespace NetworkMonitor.Server.Controllers
                 if (user.IsAdmin)
                     claims.Add(new Claim("IsAdmin", "true"));
 
+                IEnumerable<Permission> permissions;
+                if (user.IsAdmin)
+                    permissions = Enum.GetValues<Permission>();
+                else
+                    permissions = user.Permissions;
                 var perms = new StringBuilder();
-                foreach (var perm in user.Permissions)
+                foreach (var perm in permissions)
                     perms.Append(perm).Append(',');
                 claims.Add(new Claim(nameof(Permission), perms.ToString()));
 
@@ -66,6 +72,42 @@ namespace NetworkMonitor.Server.Controllers
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                 new AuthenticationProperties { IsPersistent = false });
+            return Ok();
+        }
+
+        [Authorize(nameof(Permission.ManageUsers))]
+        [HttpPost]
+        public IActionResult Add(NewUserVM user)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            if (userCol.Any(u => u.Username == user.Username))
+                return BadRequest(new Dictionary<string, List<string>> { { nameof(NewUserVM.Username), new List<string> { "Username already exists!" } } });
+            var authUser = Mapper.Map<AuthUserX>(user);
+            userCol.Save(authUser);
+            return Ok();
+        }
+
+        [Authorize(nameof(Permission.ManageUsers))]
+        public ActionResult<List<ClientAuthUser>> List()
+        {
+            return userCol.Find(u => u.Disabled != true).SortBy(u => u.LastName).ThenBy(u => u.FirstName)
+                .Project(Builders<AuthUserX>.Projection.Exclude(u => u.HashedPassword)).As<AuthUserX>()
+                .ToEnumerable().Select(u => Mapper.Map<ClientAuthUser>(u)).ToList();
+        }
+
+        [Authorize(nameof(Permission.ManageUsers))]
+        [HttpPost]
+        public IActionResult Save(ClientAuthUser user)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest("User data is invalid!");
+            var existing = userCol.FindById(user.Id);
+            if (existing == null)
+                return BadRequest("User not found!");
+            existing.InjectFrom(user);
+            userCol.Save(existing);
             return Ok();
         }
     }

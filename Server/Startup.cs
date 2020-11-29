@@ -78,7 +78,7 @@ namespace NetworkMonitor.Server
                 options.AutomaticAuthentication = false;
             });
 
-            //if (!Environment.IsDevelopment())
+            if (!Environment.IsDevelopment())
                 services.AddHostedService<NetworkChecker>();
         }
 
