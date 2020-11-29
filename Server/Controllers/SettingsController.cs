@@ -11,7 +11,7 @@ namespace NetworkMonitor.Server.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    [Authorize]
+    [Authorize(nameof(Permission.DefineNodes))]
     public class SettingsController : BaseController
     {
         private readonly IMongoCollection<GlobalAlertReceiver> alertReceiversCol;

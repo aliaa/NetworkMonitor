@@ -13,12 +13,16 @@
                             <NavLink class="nav-link" href="index">Home</NavLink>
                         </li>
 
-                        <li class="nav-item">
-                            <NavLink class="nav-link" href="definitions">Nodes Definition</NavLink>
-                        </li>
-                        <li class="nav-item">
-                            <NavLink class="nav-link" href="settings">Settings</NavLink>
-                        </li>
+                        <AuthorizeView Context="a" Policy="@nameof(Permission.DefineNodes)">
+                            <li class="nav-item">
+                                <NavLink class="nav-link" href="definitions">Nodes Definition</NavLink>
+                            </li>
+                        </AuthorizeView>
+                        <AuthorizeView Context="a" Policy="@nameof(Permission.Settings)">
+                            <li class="nav-item">
+                                <NavLink class="nav-link" href="settings">Settings</NavLink>
+                            </li>
+                        </AuthorizeView>
                         <AuthorizeView Context="a" Policy="@nameof(Permission.ManageUsers)">
                             <li class="nav-item">
                                 <NavLink class="nav-link" href="user/manage">Manage Users</NavLink>

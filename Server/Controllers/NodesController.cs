@@ -27,6 +27,7 @@ namespace NetworkMonitor.Server.Controllers
         }
 
         [HttpPost]
+        [Authorize(nameof(Permission.DefineNodes))]
         public async Task<IActionResult> Save(List<NetworkNode> nodes)
         {
             foreach (var item in nodes)
