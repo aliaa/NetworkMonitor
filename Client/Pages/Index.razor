@@ -35,8 +35,12 @@
         {
             while (!token.IsCancellationRequested)
             {
-                nodesStatus = await http.GetFromJsonAsync<List<NodeStatusVM>>("Home/Status", token);
-                StateHasChanged();
+                try
+                {
+                    nodesStatus = await http.GetFromJsonAsync<List<NodeStatusVM>>("Home/Status", token);
+                    StateHasChanged();
+                }
+                catch { }
                 await Task.Delay(2000, token);
             }
         }, token);
