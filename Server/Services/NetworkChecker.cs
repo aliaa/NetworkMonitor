@@ -59,7 +59,7 @@ namespace NetworkMonitor.Server.Services
                         {
                             if (lastStatus == null)
                                 lastStatus = NewStatus(node.Id);
-                            var reply = await p.SendPingAsync(node.Address);
+                            var reply = await p.SendPingAsync(node.Address, 2000);
                             if (lastStatus.IpStatus != reply.Status)
                                 lastStatus = NewStatus(node.Id);
                             lastStatus.IpStatus = reply.Status;

@@ -67,7 +67,6 @@ namespace NetworkMonitor.Server.Controllers
             return Unauthorized();
         }
 
-        [Authorize]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme,

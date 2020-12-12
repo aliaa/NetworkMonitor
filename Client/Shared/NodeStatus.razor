@@ -1,11 +1,11 @@
 ﻿<div class="card @(Status.IsSuccess ? "alert-success": "alert-danger")">
     <div class="card-header">
-        <h4 class="mb-0">@Status.Name</h4>
+        <h5 class="mb-0">@Status.Name</h5>
         <h6 class="mb-0">@Status.Address</h6>
     </div>
-    <div class="card-body p-3" style="font-family: monospace;">
+    <div class="card-body p-2" style="font-family: monospace;">
         <div>
-            Status: <span class="font-weight-bold">@(Status.HttpStatus != null ? Status.HttpStatus.Value : Status.IpStatus)</span>
+            Status: <span class="font-weight-bold">@(Status.HttpStatus != null ? (int)Status.HttpStatus.Value : Status.IpStatus)</span>
         </div>
         <div>
             From: <span class="font-weight-bold">@Status.StartTime</span>
