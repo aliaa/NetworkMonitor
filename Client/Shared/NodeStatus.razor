@@ -1,4 +1,4 @@
-﻿<div class="card @(Status.IsSuccess ? "alert-success": "alert-danger")">
+﻿<div class="card @(Status.IsSuccess ? "alert-success": "alert-danger")" style="opacity:@Opacity">
     <div class="card-header">
         <h5 class="mb-0">@Status.Name</h5>
         <h6 class="mb-0">@Status.Address</h6>
@@ -19,4 +19,15 @@
 @code {
     [Parameter]
     public NodeStatusVM Status { get; set; }
+
+    private double Opacity
+    {
+        get
+        {
+            var elapsed = (DateTime.Now - Status.LastTime).TotalMinutes;
+            if (elapsed > 5)
+                elapsed = 5;
+            return 1.0 - elapsed / 10.0;
+        }
+    }
 }
