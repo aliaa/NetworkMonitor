@@ -63,6 +63,9 @@ namespace NetworkMonitor.Server
             });
 
             services.AddHttpClient();
+            // Allow all certificates:
+            ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
+
             services.AddTransient<IAlertSender, HttpGetAlertSender>();
 
             services.AddRazorPages();

@@ -43,14 +43,14 @@ namespace NetworkMonitor.Server.Services
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                await Task.Delay(1000);
+                await Task.Delay(1000, stoppingToken);
                 var nodes = nodesCol.All();
                 foreach (var node in nodes)
                 {
                     if (stoppingToken.IsCancellationRequested)
                         break;
 
-                    var lastStatus = statusCol.Find(s => s.NodeId == node.Id).SortByDescending(s => s.LastTime).FirstOrDefault();
+                    var lastStatus = statusCol.Find(s => s.NodeId == node.Id).SortByDescending(s => s.LastTime).FirstOrDefault(cancellationToken: stoppingToken);
 
                     if (node.CheckMechanism == NetworkNode.CheckMechanismEnum.Ping)
                     {
